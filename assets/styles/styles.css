@@ -1,0 +1,86 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #4caf50;
+  color: white;
+  padding: 1em;
+  text-align: center;
+}
+
+main {
+  padding: 1em;
+}
+
+section {
+  margin-bottom: 2em;
+}
+
+h2 {
+  border-bottom: 2px solid #4caf50;
+  padding-bottom: 0.5em;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type='text'],
+input[type='number'] {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type='checkbox'] {
+  margin-right: 0.5em;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#incompleteBookList,
+#completeBookList {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+[data-testid='bookItem'] {
+  background-color: white;
+  padding: 1em;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-testid='bookItemTitle'] {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+[data-testid='bookItemAuthor'],
+[data-testid='bookItemYear'] {
+  margin: 0.2em 0;
+}
