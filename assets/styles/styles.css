@@ -1,36 +1,46 @@
 /* styles.css */
 
-body {
-  font-family: Arial, sans-serif;
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
+  color: #333;
 }
 
 header {
   background-color: #4caf50;
   color: white;
-  padding: 1em;
+  padding: 1rem;
   text-align: center;
+  animation: fadeInDown 1s ease-in-out;
 }
 
 main {
-  padding: 1em;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 section {
-  margin-bottom: 2em;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease-in-out;
 }
 
 h2 {
   border-bottom: 2px solid #4caf50;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1rem;
 }
 
 label {
@@ -39,48 +49,95 @@ label {
 
 input[type='text'],
 input[type='number'] {
-  padding: 0.5em;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input[type='text']:focus,
+input[type='number']:focus {
+  border-color: #4caf50;
 }
 
 input[type='checkbox'] {
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 
 button {
   background-color: #4caf50;
   color: white;
-  padding: 0.5em 1em;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
   background-color: #45a049;
+  transform: scale(1.05);
 }
 
+#searchResults,
 #incompleteBookList,
 #completeBookList {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
 [data-testid='bookItem'] {
   background-color: white;
-  padding: 1em;
+  padding: 1rem;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-testid='bookItem']:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 [data-testid='bookItemTitle'] {
   font-size: 1.2em;
-  margin-bottom: 0.5em;
+  font-weight: bold;
 }
 
 [data-testid='bookItemAuthor'],
 [data-testid='bookItemYear'] {
-  margin: 0.2em 0;
+  color: #666;
+}
+
+[data-testid='bookItemIsCompleteButton'],
+[data-testid='bookItemDeleteButton'],
+[data-testid='bookItemEditButton'] {
+  margin-top: auto;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
