@@ -76,3 +76,4 @@ document.body.addEventListener('click', (event) => {
     deleteBook(bookId);
   }
 });
+

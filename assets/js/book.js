@@ -102,51 +102,79 @@ class BookItem extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          background-color: white;
-          padding: 1rem;
-          border-radius: 4px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        :host(:hover) {
-          transform: translateY(-5px);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        h3 {
-          font-size: 1.2em;
-          font-weight: bold;
-        }
-        p {
-          color: #666;
-        }
-        button {
-          background-color: #4CAF50;
-          color: white;
-          padding: 0.5rem 1rem;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        button:hover {
-          background-color: #45a049;
-          transform: scale(1.05);
-        }
-      </style>
-      <h3>${this._book.title}</h3>
-      <p>Penulis: ${this._book.author}</p>
-      <p>Tahun: ${this._book.year}</p>
-      <div>
-        <button data-testid="bookItemIsCompleteButton">${
-          this._book.isComplete ? 'Belum selesai dibaca' : 'Selesai dibaca'
-        }</button>
-        <button data-testid="bookItemDeleteButton">Hapus Buku</button>
-        <button data-testid="bookItemEditButton">Edit Buku</button>
-      </div>
-    `;
+    <link rel="stylesheet" href="assets/styles/styles.css">
+    <h3>${this._book.title}</h3>
+    <p>Penulis: ${this._book.author}</p>
+    <p>Tahun: ${this._book.year}</p>
+    <div>
+      <button data-testid="bookItemIsCompleteButton">${
+        this._book.isComplete ? 'Belum selesai dibaca' : 'Selesai dibaca'
+      }</button>
+      <button data-testid="bookItemDeleteButton">Hapus Buku</button>
+      <button data-testid="bookItemEditButton">Edit Buku</button>
+    </div>
+  `;
+
+    // Menambahkan event listener untuk tombol "Selesai dibaca" dan "Belum selesai dibaca"
+    this.shadowRoot
+      .querySelectorAll('[data-testid="bookItemIsCompleteButton"]')
+      .forEach((button) => {
+        button.addEventListener('click', () => {
+          const bookId = +this.dataset.bookid;
+          const book = books.find((b) => b.id === bookId);
+
+          if (book) {
+            book.isComplete = !book.isComplete;
+            saveBooks();
+            renderBooks();
+          }
+        });
+      });
+
+    // Menambahkan event listener untuk tombol edit
+    this.shadowRoot
+      .querySelectorAll('[data-testid="bookItemEditButton"]')
+      .forEach((button) => {
+        button.addEventListener('click', () => {
+          const bookId = +this.dataset.bookid;
+          const book = books.find((b) => b.id === bookId);
+
+          if (book) {
+            document.getElementById('editBookTitle').value = book.title;
+            document.getElementById('editBookAuthor').value = book.author;
+            document.getElementById('editBookYear').value = book.year;
+
+            const editBookModal = new bootstrap.Modal(
+              document.getElementById('editBookModal')
+            );
+            editBookModal.show();
+
+            document
+              .getElementById('saveEditBook')
+              .addEventListener('click', () => {
+                const newTitle = document.getElementById('editBookTitle').value;
+                const newAuthor =
+                  document.getElementById('editBookAuthor').value;
+                const newYear = document.getElementById('editBookYear').value;
+
+                if (newTitle && newAuthor && newYear) {
+                  editBook(bookId, newTitle, newAuthor, newYear);
+                  editBookModal.hide();
+                }
+              });
+          }
+        });
+      });
+
+    // Menambahkan event listener untuk tombol hapus
+    this.shadowRoot
+      .querySelectorAll('[data-testid="bookItemDeleteButton"]')
+      .forEach((button) => {
+        button.addEventListener('click', () => {
+          const bookId = +this.dataset.bookid;
+          deleteBook(bookId);
+        });
+      });
   }
 }
 
