@@ -35,4 +35,3 @@ document
 document.addEventListener('DOMContentLoaded', () => {
   renderBooks();
 });
-

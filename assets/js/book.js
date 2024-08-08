@@ -58,7 +58,7 @@ export function deleteBook(bookId) {
 
 export function searchBooks(query) {
   const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(query.toLowerCase())
+    book.title.toLowerCase().includes(query.toLowerCase()),
   );
 
   const searchResults = document.getElementById('searchResults');
@@ -145,14 +145,14 @@ class BookItem extends HTMLElement {
           if (book) {
             console.log(
               '🚀 ~ BookItem ~ button.addEventListener ~ book:',
-              book
+              book,
             );
             document.getElementById('editBookTitle').value = book.title;
             document.getElementById('editBookAuthor').value = book.author;
             document.getElementById('editBookYear').value = book.year;
 
             const editBookModal = new bootstrap.Modal(
-              document.getElementById('editBookModal')
+              document.getElementById('editBookModal'),
             );
             editBookModal.show();
 
@@ -164,7 +164,7 @@ class BookItem extends HTMLElement {
                   document.getElementById('editBookAuthor').value;
                 const newYear = parseInt(
                   document.getElementById('editBookYear').value,
-                  10
+                  10,
                 );
 
                 if (!newTitle || !newAuthor || !newYear) {
