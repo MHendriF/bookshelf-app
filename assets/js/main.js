@@ -1,5 +1,3 @@
-// main.js
-
 import {
   addBook,
   editBook,
@@ -28,7 +26,7 @@ document.getElementById('bookForm').addEventListener('submit', (event) => {
   }
 
   addBook(title, author, year, isComplete);
-  event.target.reset(); // Reset form setelah submit
+  event.target.reset();
 });
 
 document.getElementById('searchBook').addEventListener('submit', (event) => {

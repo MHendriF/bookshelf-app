@@ -1,5 +1,3 @@
-// book.js
-
 const BOOKS_KEY = 'books';
 
 let books = JSON.parse(localStorage.getItem(BOOKS_KEY)) || [];
@@ -69,8 +67,10 @@ export function searchBooks(query) {
   searchResults.innerHTML = '';
 
   if (filteredBooks.length === 0) {
-    searchResults.innerHTML = '<p>Buku tidak ditemukan.</p>';
+    searchResults.innerHTML = '<p id="resultInfo">Buku tidak ditemukan</p>';
   } else {
+    searchResults.innerHTML =
+      '<p id="resultInfo">Hasil Pencarian Buku : "' + query + '"</p>';
     filteredBooks.forEach((book) => {
       const bookItem = document.createElement('book-item');
       bookItem.dataset.bookid = book.id;
@@ -171,8 +171,10 @@ class BookItem extends HTMLElement {
       .querySelectorAll('[data-testid="bookItemDeleteButton"]')
       .forEach((button) => {
         button.addEventListener('click', () => {
-          const bookId = +this.dataset.bookid;
-          deleteBook(bookId);
+          if (confirm('Anda yakin ingin menghapus buku ini?')) {
+            const bookId = +this.dataset.bookid;
+            deleteBook(bookId);
+          }
         });
       });
   }

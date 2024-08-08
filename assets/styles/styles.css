@@ -1,5 +1,3 @@
-/* styles.css */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -28,6 +26,10 @@ main {
 
 section {
   margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
   animation: fadeInUp 1s ease-in-out;
 }
 
@@ -35,6 +37,15 @@ h2 {
   border-bottom: 2px solid #4caf50;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+p {
+  color: #666;
 }
 
 form {
@@ -65,30 +76,23 @@ input[type='checkbox'] {
   margin-right: 0.5rem;
 }
 
-button {
-  width: 100%;
-  margin-bottom: 5px;
-  background-color: #4caf50;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  display: block;
-}
-
-button:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
-}
-
-#searchResults,
 #incompleteBookList,
 #completeBookList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
+  margin: 1rem 0;
+}
+
+#searchResults p {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#resultInfo {
+  justify-content: center;
+  margin-top: 20px;
 }
 
 [data-testid='bookItem'] {
@@ -119,8 +123,29 @@ button:hover {
 
 [data-testid='bookItemIsCompleteButton'],
 [data-testid='bookItemDeleteButton'],
-[data-testid='bookItemEditButton'] {
+[data-testid='bookItemEditButton'],
+[data-testid='deleteAllBooksButton'],
+[data-testid='bookFormSubmitButton'],
+[data-testid='searchBookFormSubmitButton'] {
   margin-top: auto;
+  width: 100%;
+  border-radius: 4px;
+}
+
+button {
+  margin-bottom: 5px;
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: block;
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
 }
 
 @keyframes fadeInDown {
@@ -157,13 +182,4 @@ button:hover {
 :host(:hover) {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-h3 {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-p {
-  color: #666;
 }
