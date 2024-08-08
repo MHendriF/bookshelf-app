@@ -27,13 +27,13 @@ export function renderBooks() {
   });
 }
 
-export function addBook(title, author, year, isComplete) {
+export function addBook(book) {
   const newBook = {
-    id: new Date().getTime(),
-    title,
-    author,
-    year,
-    isComplete,
+    id: book.id || new Date().getTime(),
+    title: book.title,
+    author: book.author,
+    year: book.year,
+    isComplete: book.isComplete,
   };
 
   books.push(newBook);
@@ -41,12 +41,10 @@ export function addBook(title, author, year, isComplete) {
   renderBooks();
 }
 
-export function editBook(bookId, title, author, year) {
-  const book = books.find((b) => b.id === bookId);
-  if (book) {
-    book.title = title;
-    book.author = author;
-    book.year = year;
+export function editBook(bookId, updatedBook) {
+  const bookIndex = books.findIndex((b) => b.id === bookId);
+  if (bookIndex !== -1) {
+    books[bookIndex] = { ...books[bookIndex], ...updatedBook };
     saveBooks();
     renderBooks();
   }
@@ -140,6 +138,10 @@ class BookItem extends HTMLElement {
           const book = books.find((b) => b.id === bookId);
 
           if (book) {
+            console.log(
+              '🚀 ~ BookItem ~ button.addEventListener ~ book:',
+              book
+            );
             document.getElementById('editBookTitle').value = book.title;
             document.getElementById('editBookAuthor').value = book.author;
             document.getElementById('editBookYear').value = book.year;
@@ -155,12 +157,30 @@ class BookItem extends HTMLElement {
                 const newTitle = document.getElementById('editBookTitle').value;
                 const newAuthor =
                   document.getElementById('editBookAuthor').value;
-                const newYear = document.getElementById('editBookYear').value;
+                const newYear = parseInt(
+                  document.getElementById('editBookYear').value,
+                  10
+                );
 
-                if (newTitle && newAuthor && newYear) {
-                  editBook(bookId, newTitle, newAuthor, newYear);
-                  editBookModal.hide();
+                if (!newTitle || !newAuthor || !newYear) {
+                  alert('Field title, author, dan year harus diisi!');
+                  return;
                 }
+
+                if (isNaN(newYear)) {
+                  alert('Tahun harus berupa angka.');
+                  return;
+                }
+
+                const updatedBook = {
+                  id: bookId,
+                  title: newTitle,
+                  author: newAuthor,
+                  year: newYear,
+                };
+
+                editBook(bookId, updatedBook);
+                editBookModal.hide();
               });
           }
         });
