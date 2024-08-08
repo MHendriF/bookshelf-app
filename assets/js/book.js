@@ -100,16 +100,21 @@ class BookItem extends HTMLElement {
 
   render() {
     this.shadowRoot.innerHTML = `
-    <link rel="stylesheet" href="assets/styles/styles.css">
-    <h3>${this._book.title}</h3>
-    <p>Penulis: ${this._book.author}</p>
-    <p>Tahun: ${this._book.year}</p>
+    <h3 part="book-item-title book-item-content" data-testid="bookItemTitle">${
+      this._book.title
+    }</h3>
+    <p part="book-item-author book-item-content" data-testid="bookItemAuthor">Penulis: ${
+      this._book.author
+    }</p>
+    <p part="book-item-year book-item-content" data-testid="bookItemYear">Tahun: ${
+      this._book.year
+    }</p>
     <div>
-      <button data-testid="bookItemIsCompleteButton">${
+      <button part="book-item-button" data-testid="bookItemIsCompleteButton">${
         this._book.isComplete ? 'Belum selesai dibaca' : 'Selesai dibaca'
       }</button>
-      <button data-testid="bookItemDeleteButton">Hapus Buku</button>
-      <button data-testid="bookItemEditButton">Edit Buku</button>
+      <button part="book-item-button" data-testid="bookItemDeleteButton">Hapus Buku</button>
+      <button part="book-item-button" data-testid="bookItemEditButton">Edit Buku</button>
     </div>
   `;
 

@@ -108,19 +108,6 @@ input[type='checkbox'] {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-[data-testid='bookItemTitle'] {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-[data-testid='bookItemAuthor'],
-[data-testid='bookItemYear'] {
-  color: #666;
-}
-
-[data-testid='bookItemIsCompleteButton'],
-[data-testid='bookItemDeleteButton'],
-[data-testid='bookItemEditButton'],
 [data-testid='deleteAllBooksButton'],
 [data-testid='bookFormSubmitButton'],
 [data-testid='searchBookFormSubmitButton'] {
@@ -138,6 +125,10 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
   display: block;
+}
+
+button:last-child {
+  margin-right: 0;
 }
 
 button:hover {
@@ -167,16 +158,39 @@ button:hover {
   }
 }
 
-:host {
-  display: block;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+book-item::part(book-item-title) {
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
-:host(:hover) {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+book-item::part(book-item-author),
+book-item::part(book-item-year) {
+  color: #666;
+}
+
+book-item::part(book-item-content) {
+  margin: 0;
+}
+
+book-item::part(book-item-button) {
+  margin-top: auto;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: block;
+}
+
+book-item::part(book-item-button):last-child {
+  margin-right: 0;
+}
+
+book-item::part(book-item-button):hover {
+  background-color: #45a049;
+  transform: scale(1.05);
 }
